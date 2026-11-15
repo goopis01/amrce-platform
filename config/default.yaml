@@ -1,0 +1,99 @@
+# All tunables live here. Every value is an UNTESTED starting hypothesis.
+
+market: us_equities            # us_equities | crypto_perps
+timeframes: {htf: 1D, mtf: 1h, ltf: 15m}
+
+universe:
+  - SPY  # US Equities
+  - EFA  # Developed International
+  - VNQ  # Real Estate
+  - DBC  # Broad Commodities
+  - TLT  # Long-Duration Treasuries
+
+features:
+  enabled: [trend, volatility, momentum]  # price_action, structure, breakout are still stubs
+  params:
+    ema_fast: 20
+    ema_slow: 60
+    ema_trend: 100
+    atr_n: 14
+    atr_slow_n: 50
+    bb_n: 20
+    bb_k: 2.0
+    bbw_lookback: 120
+    atr_pct_lookback: 250
+    slope_lookback: 10
+    rsi_n: 14
+    rsi2_n: 2
+    stoch_k: 14
+    stoch_smooth: 7
+    stoch_d: 3
+
+regime:
+  hysteresis_bars: 2
+  trend_slope_min: 0.10
+  trend_sep_min: 0.5
+  range_slope_max: 0.05
+  range_crossings_min: 3
+  squeeze_pct_max: 20
+  expansion_from_pct: 25
+  expansion_to_pct: 50
+  atr_ratio_squeeze: 0.85
+  atr_ratio_expansion: 1.1
+  unstable_atr_pct: 95
+  unstable_range_atr: 4.0
+  allow_unstable: false
+
+signals:
+  enabled_setups: [baseline_pullback]
+  params:
+    baseline:
+      rsi2_entry: 10        # buy pullbacks when RSI(2) < this, inside a bullish trend regime
+      stop_atr: 2.0
+      shorts: false         # baseline is long-only
+  score_min: 75
+  min_rr: 1.5
+  min_confirmations: 2
+  stop_atr_min: 1.0
+  stop_atr_max: 3.0
+  tp1_r: 1.0
+  tp2_r: 2.0
+
+sizing:
+  base_risk: 0.005
+  max_position_pct: 0.20
+  dd_halt: 0.10
+  min_dd_mult: 0.25
+  regime_mult:
+    A_strong_bull: 1.0
+    B_strong_bear: 1.0
+    C_range: 0.75
+    D_compression: 0.5
+    E_expansion: 0.75
+    F_unstable: 0.25
+    G_no_trade: 0.0
+
+risk:
+  max_daily_loss: 0.02
+  max_weekly_loss: 0.04
+  max_drawdown: 0.10
+  max_positions: 3
+  bucket_risk_cap_mult: 1.5
+  loss_streak_cooldown: 3
+  max_stops_per_symbol_day: 2
+  gross_exposure_max: 1.0
+
+costs: {commission_bps: 1.0, slippage_bps: 1.0}
+
+ai:
+  mode: off                     # off | shadow | active
+  model: claude-sonnet-5-5
+  timeout_s: 10
+
+backtest:
+  initial_equity: 100000
+  warmup_bars: 300
+  tp1_fraction: 0.0             # 0 = no partial exit
+  move_stop_to_be_after_tp1: false
+  time_stop_bars: 40
+  bars_per_year: 1638           # 6.5 bars/day * 252 (1h stocks); set per timeframe

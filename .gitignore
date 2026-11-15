@@ -1,0 +1,28 @@
+# Security & Databases (NEVER COMMIT)
+amrce_secret.key
+amrce_users.db
+*.db
+*.sqlite3
+*.key
+.env
+.streamlit/secrets.toml
+
+# Cached Market Data & Local Reports
+data_cache/
+reports/
+
+# Python Bytecode & Environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+build/
+dist/
+*.egg-info/
+
+# macOS & IDE clutter
+.DS_Store
+.vscode/
+.idea/
