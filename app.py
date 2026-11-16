@@ -34,10 +34,11 @@ st.markdown("""
         height: 2rem !important;
     }
 
-    .stApp {
-        background-color: #09090B;
-        color: #FAFAFA;
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    /* 🔴 FORCES DEEP ZINC-950 BACKGROUND GLOBALLY */
+    html, body, .stApp, [data-testid="stApp"] {
+        background-color: #09090B !important;
+        color: #FAFAFA !important;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
         -webkit-font-smoothing: antialiased;
     }
 
