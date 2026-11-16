@@ -6,3 +6,4 @@ plotly>=5.20.0
 alpaca-py>=0.28.0
 cryptography>=42.0.0
 requests>=2.31.0
+fpdf>=1.7.2
